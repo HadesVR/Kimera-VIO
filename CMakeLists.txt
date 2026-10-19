@@ -24,10 +24,31 @@ message(STATUS "==============================================================")
 message(STATUS "====================  Dependencies ===========================")
 
 find_package(Gflags REQUIRED)
+# vcpkg's glog-config.cmake hardcodes a link dependency on a target named
+# "gflags::gflags", but vcpkg's gflags port (with default settings) only
+# creates "gflags::gflags_static" or "gflags_static". Bridge the naming gap.
+if(NOT TARGET gflags::gflags)
+  if(TARGET gflags::gflags_static)
+    add_library(gflags::gflags ALIAS gflags::gflags_static)
+  elseif(TARGET gflags::gflags_shared)
+    add_library(gflags::gflags ALIAS gflags::gflags_shared)
+  elseif(TARGET gflags_static)
+    add_library(gflags::gflags ALIAS gflags_static)
+  elseif(TARGET gflags_shared)
+    add_library(gflags::gflags ALIAS gflags_shared)
+  endif()
+endif()
 find_package(Glog 0.3.5 REQUIRED)
 find_package(GTSAM REQUIRED)
 find_package(GTSAM_UNSTABLE REQUIRED)
 find_package(opengv REQUIRED)
+# vcpkg's freetype-config.cmake and opencv_wechat_qrcode reference
+# BZip2::BZip2 / Iconv::Iconv via generator expressions but never call
+# find_package() for them themselves; make sure those targets exist before
+# OpenCV's transitive dependency chain (OpenCV -> VTK -> Freetype) needs them.
+# Optional: system OpenCV builds (Linux) don't need them.
+find_package(BZip2 QUIET)
+find_package(Iconv QUIET)
 find_package(OpenCV REQUIRED)
 find_package(DBoW2 REQUIRED)
 find_package(KimeraRPGO REQUIRED)
@@ -73,7 +94,10 @@ endif()
 add_subdirectory(third_party)
 
 ### Compile the code
-add_library(${PROJECT_NAME} SHARED "")
+add_library(${PROJECT_NAME} STATIC "")
+# Position-independent so the static library can go into a shared one
+# (hvr_core on Linux); MSVC ignores it.
+set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX d POSITION_INDEPENDENT_CODE ON)
 
 ### Add source code for data provider.
 add_subdirectory(include/kimera-vio/dataprovider)
@@ -157,7 +181,12 @@ else(Pangolin_FOUND)
   message(STATUS "Pangolin not found.")
 endif(Pangolin_FOUND)
 
-target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wno-unused-parameter -pipe)
+if(MSVC)
+  target_compile_options(${PROJECT_NAME} PRIVATE /bigobj /wd4251 /wd4275)
+  target_compile_definitions(${PROJECT_NAME} PRIVATE _CRT_SECURE_NO_WARNINGS _SCL_SECURE_NO_WARNINGS _USE_MATH_DEFINES NOMINMAX)
+else()
+  target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Wno-unused-parameter -pipe)
+endif()
 
 # We would just need to say cxx_std_11 if we were using cmake 3.8
 target_compile_features(${PROJECT_NAME} PUBLIC
@@ -167,8 +196,11 @@ target_compile_features(${PROJECT_NAME} PUBLIC
 # e.g. when testing
 add_library(kimera_vio::kimera_vio ALIAS kimera_vio)
 
-add_executable(stereoVIOEuroc ./examples/KimeraVIO.cpp)
-target_link_libraries(stereoVIOEuroc PUBLIC kimera_vio::kimera_vio)
+option(KIMERA_BUILD_EXAMPLE "Build the stereoVIOEuroc example executable" ON)
+if(KIMERA_BUILD_EXAMPLE)
+  add_executable(stereoVIOEuroc ./examples/KimeraVIO.cpp)
+  target_link_libraries(stereoVIOEuroc PUBLIC kimera_vio::kimera_vio)
+endif()
 
 ############################### TESTS ##########################################
 ### Add testing

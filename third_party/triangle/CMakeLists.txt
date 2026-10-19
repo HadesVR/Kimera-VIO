@@ -5,9 +5,11 @@ add_library(triangle STATIC "${CMAKE_CURRENT_LIST_DIR}/src/triangle.c")
 target_include_directories(triangle PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>
     $<INSTALL_INTERFACE:include>)
-set_target_properties(triangle PROPERTIES POSITION_INDEPENDENT_CODE ON)
+set_target_properties(triangle PROPERTIES POSITION_INDEPENDENT_CODE ON DEBUG_POSTFIX d)
 #TODO(someone) consider removing march=native here
-target_compile_options(triangle PRIVATE -march=native -Wno-format)
+if(NOT MSVC)
+  target_compile_options(triangle PRIVATE -march=native -Wno-format)
+endif()
 
 add_library(triangle::triangle ALIAS triangle)
 
