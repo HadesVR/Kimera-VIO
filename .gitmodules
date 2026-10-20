@@ -8,3 +8,6 @@
 	path = deps/DBoW2
 	url = https://github.com/dorian3d/DBoW2.git
 	ignore = dirty
+[submodule "deps/opengv"]
+	path = deps/opengv
+	url = https://github.com/laurentkneip/opengv.git
