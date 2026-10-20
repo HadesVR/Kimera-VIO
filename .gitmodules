@@ -11,3 +11,6 @@
 [submodule "deps/opengv"]
 	path = deps/opengv
 	url = https://github.com/laurentkneip/opengv.git
+[submodule "deps/Kimera-RPGO"]
+	path = deps/Kimera-RPGO
+	url = https://github.com/HadesVR/Kimera-RPGO.git

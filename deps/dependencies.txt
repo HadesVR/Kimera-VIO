@@ -1,7 +1,7 @@
 gtsam 4.2 (with gtsam_unstable and its bundled Eigen 3.3.7) - git submodule deps/gtsam (borglab/gtsam)
 opengv (commit 91f4b19) - git submodule deps/opengv (laurentkneip/opengv), built against GTSAM's bundled Eigen
 DBoW2 (commit 3924753) - git submodule deps/DBoW2 (dorian3d/DBoW2) + scripts/windows/patches/DBoW2.patch
-Kimera-RPGO (commit d28b4df) - source in deps/Kimera-RPGO (patched, not committed)
+Kimera-RPGO (upstream commit d28b4df + our Windows build commit) - git submodule deps/Kimera-RPGO (HadesVR/Kimera-RPGO, fork of MIT-SPARK/Kimera-RPGO)
 gflags - vcpkg
 glog - vcpkg
 eigen3 - vcpkg (5.0.1; not used by GTSAM or opengv, which need GTSAM's bundled Eigen)

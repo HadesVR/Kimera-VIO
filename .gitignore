@@ -37,10 +37,11 @@
 % PROGRESS.md and deps/dependencies.txt (how they were built) are meant to be committed.
 /deps/*
 !/deps/dependencies.txt
-# git submodules (Kimera-RPGO carries our patches: not yet)
+# git submodules
 !/deps/gtsam
 !/deps/DBoW2
 !/deps/opengv
+!/deps/Kimera-RPGO
 /vcpkg/
 /vcpkg_installed/
 /sdk/
