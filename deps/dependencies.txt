@@ -1,0 +1,30 @@
+gtsam 4.2 (with gtsam_unstable and its bundled Eigen 3.3.7) - git submodule deps/gtsam (borglab/gtsam)
+opengv (commit 91f4b19) - source in deps/opengv (patched, not committed), built against GTSAM's bundled Eigen
+DBoW2 (commit 3924753) - git submodule deps/DBoW2 (dorian3d/DBoW2) + scripts/windows/patches/DBoW2.patch
+Kimera-RPGO (commit d28b4df) - source in deps/Kimera-RPGO (patched, not committed)
+gflags - vcpkg
+glog - vcpkg
+eigen3 - vcpkg (5.0.1; not used by GTSAM or opengv, which need GTSAM's bundled Eigen)
+tbb 2023.1 - vcpkg
+boost-serialization 1.91 - vcpkg
+boost-system 1.91 - vcpkg
+boost-filesystem 1.91 - vcpkg
+boost-thread 1.91 - vcpkg
+boost-date-time 1.91 - vcpkg
+boost-timer 1.91 - vcpkg
+boost-chrono 1.91 - vcpkg
+boost-regex 1.91 - vcpkg
+boost-program-options 1.91 - vcpkg
+boost-math 1.91 - vcpkg
+boost-assign 1.91 - vcpkg
+boost-bimap 1.91 - vcpkg
+boost-foreach 1.91 - vcpkg
+boost-format 1.91 - vcpkg
+boost-graph 1.91 - vcpkg
+boost-lambda 1.91 - vcpkg
+boost-multiprecision 1.91 - vcpkg
+boost-ptr-container 1.91 - vcpkg
+bzip2 - vcpkg
+libiconv - vcpkg
+opencv4 4.12.0 with features contrib, vtk, rgbd (brings VTK 9.3) - vcpkg
+pangolin 0.9.5 - vcpkg (the deps/Pangolin clone is not used)

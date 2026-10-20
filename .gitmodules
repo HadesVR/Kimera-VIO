@@ -1,3 +1,10 @@
 [submodule "dev_tools/linter"]
 	path = dev_tools/linter
 	url = https://github.com/MIT-SPARK/linter.git
+[submodule "deps/gtsam"]
+	path = deps/gtsam
+	url = https://github.com/borglab/gtsam.git
+[submodule "deps/DBoW2"]
+	path = deps/DBoW2
+	url = https://github.com/dorian3d/DBoW2.git
+	ignore = dirty

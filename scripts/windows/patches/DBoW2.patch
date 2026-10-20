@@ -1,0 +1,22 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 1e5ac30..9fbd3d6 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -29,6 +29,8 @@ set(SRCS
+ set(DEPENDENCY_DIR ${CMAKE_CURRENT_BINARY_DIR}/dependencies)
+ set(DEPENDENCY_INSTALL_DIR ${DEPENDENCY_DIR}/install)
+ 
++find_package(BZip2 REQUIRED)
++find_package(Iconv REQUIRED)
+ find_package(OpenCV REQUIRED)
+ include_directories(${OpenCV_INCLUDE_DIRS})
+ 
+@@ -40,7 +42,7 @@ if(BUILD_DBoW2)
+   add_library(${PROJECT_NAME} ${LIB_SHARED} ${SRCS})
+   target_include_directories(${PROJECT_NAME} PUBLIC include/DBoW2/ include/)
+   target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
+-  set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 11)
++  set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 11 DEBUG_POSTFIX d)
+ endif(BUILD_DBoW2)
+ 
+ if(BUILD_Demo)

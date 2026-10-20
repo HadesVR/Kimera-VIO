@@ -31,3 +31,16 @@
 *.pyc
 
 *compile_commands.json
+
+% HadesVR: the Windows SDK build's dependencies and outputs (~22 GB), kept
+% next to the source but never committed. scripts/windows/, vcpkg.json,
+% PROGRESS.md and deps/dependencies.txt (how they were built) are meant to be committed.
+/deps/*
+!/deps/dependencies.txt
+# git submodules (Kimera-RPGO and opengv carry our patches: not yet)
+!/deps/gtsam
+!/deps/DBoW2
+/vcpkg/
+/vcpkg_installed/
+/sdk/
+/sdk_test/

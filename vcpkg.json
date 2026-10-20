@@ -1,0 +1,35 @@
+{
+  "name": "kimera-vio-sdk-deps",
+  "version-string": "1.0.0",
+  "dependencies": [
+    "gflags",
+    "glog",
+    "eigen3",
+    "tbb",
+    "boost-serialization",
+    "boost-system",
+    "boost-filesystem",
+    "boost-thread",
+    "boost-date-time",
+    "boost-timer",
+    "boost-chrono",
+    "boost-regex",
+    "boost-program-options",
+    "boost-math",
+    "boost-assign",
+    "boost-bimap",
+    "boost-foreach",
+    "boost-format",
+    "boost-graph",
+    "boost-lambda",
+    "boost-multiprecision",
+    "boost-ptr-container",
+    "bzip2",
+    "libiconv",
+    {
+      "name": "opencv4",
+      "features": ["contrib", "vtk", "rgbd"]
+    },
+    "pangolin"
+  ]
+}
